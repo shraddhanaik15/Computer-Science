@@ -1,40 +1,70 @@
-#include<stdio.h>
-int n, i, a[100], j;
+#include <stdio.h>
+#include <math.h>
 
-void increment(int a[])
-{
-		for(j=0;j<16;j++)
-		{
-			for(i=0;i<8; i++)
-			{			
-			while(i<8 && a[i]==1)
-		{
-		
-					a[i]=0;
-					i = i+1;
-		}
-			if(i<8)
-				{
-					a[i]=1;	
-					printf("%d ", a[i]);
-					printf("\n");
-				}
-			}
-		}
-	}
+int cost = 0, c = 0;
+int i, k, j;
+int arr[100];
+int increment(int[],int);
 
 void main()
 {
-	
-	printf("Enter an 8 bit binary no");
-	for(i=0;i<8;i++)
-	{
-		scanf("%d", &a[i]);
-	}
-	for(i=0;i<8;i++)
-	{
-		a[i]=0;
-	}
-	increment(a);
+	printf("enter the 'k' of k-bit binary counter\n");
+	scanf("%d",&k);	
 
+    // code to initialize the array
+	for (i = 0; i < k; i++)
+	{
+		arr[i] = 0;
+	}
+
+ //    // code to print initial value of counter '00...0'
+ //    for(i = k-1; i >= 0;i--)
+	// {
+ //        printf("%d",arr[i]);
+ //    }
+
+    printf("\n");
+	
+    //loop to increment counter value from 0 to (2 power k)-1 
+    for (i = 1; i <=16 ; i++)
+	{
+        increment(arr,k);		
+	}
+		
+    printf("\ncost : %d \n",cost);
+	
 }
+
+//increment function 
+
+int increment(int arr[],int k)
+{
+
+    int j = 0;
+
+     // code to increment the value of binary counter
+
+   while((j<k) && (arr[j] == 1))
+	{
+     	arr[j] = 0;
+     	j++;
+        cost++;
+    }
+    
+     if(j < k)
+	 {
+     	arr[j] = 1;
+        cost++;
+     }
+
+    // code to print binary value of counter
+
+    for( i = k-1; i >= 0;i--)
+	{
+        printf("%d ",arr[i]);
+    }
+  
+printf("\n");
+return 0;
+}
+
