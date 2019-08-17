@@ -1,39 +1,57 @@
 #include<stdio.h>
 #include<mpi.h>
-
-
 int main(int argc, char *argv[])
 {
-	int rank, size,n,i,m,a[100],sum=0,average,j, rootaverage;
+	int rank, size,m1,average,newaverage[10],Totalavg=0;
 	MPI_Init(&argc, &argv);
-	MPI_Status status;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	MPI_Status status;
+	int m,a[100],i,b[100],sum = 0;
 
 	if(rank == 0)
 	{
-		printf("Enter the value M\n");
+		printf("Enter no of elements\n");
 		scanf("%d", &m);
-		printf("Enter the M elements\n");
+		printf("Enter the elements\n");
 		for(i=0;i<m*size;i++)
 			scanf("%d", &a[i]);
-	}
-	MPI_Bcast(&m, 1, MPI_INT, 0, MPI_COMM_WORLD);
-	MPI_Bcast(&a, m/size ,MPI_INT,0,MPI_COMM_WORLD);
 
-		for(i=0;i<m/size;i++)
+	}
+	MPI_Bcast(&m,1,MPI_INT, 0,MPI_COMM_WORLD);
+	MPI_Scatter(&a[0], m, MPI_INT, &b[0],m , MPI_INT, 0, MPI_COMM_WORLD);
+	
+	//calculating sum
+	for(i=0;i<m;i++)
 	{
-		sum = sum + a[i];
-		average = (float)sum/m;
+		sum = sum +b[i];		
 	}
-	printf("Process %d has sum %d\n", rank,sum);
-	printf("Process %d has average %d\n", rank,average);
+	printf("Sum is %d in process %d\n",sum, rank );
+	
+	//calculating average in each process
+	average = sum/m;
+	printf("Average is %d in process %d\n",average, rank );
 
-	MPI_Reduce(&average, &rootaverage,1,MPI_INT,MPI_SUM,0,MPI_COMM_WORLD);
+	//Using MPI_Gather()
+	MPI_Gather(&average,1,MPI_INT,&newaverage[0],1,MPI_INT, 0, MPI_COMM_WORLD);
+
 	if(rank == 0)
 	{
-		printf("Total average is %fin process %d\n",(float)rootaverage/m ,rank);
+		for(i=0;i<size;i++)
+	{
+		Totalavg =  Totalavg + newaverage[i];
 	}
-	MPI_Finalize();
-}
+	printf("New avg is %d\n", Totalavg/size);
 
+	}
+	
+	//Using MPI_Reduce()
+	//MPI_Reduce(&average, &newaverage,1,MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+
+	// if(rank == 0)
+	// printf("Total Average is %d in process %d\n",newaverage/m, rank );
+
+
+	MPI_Finalize();
+
+}
