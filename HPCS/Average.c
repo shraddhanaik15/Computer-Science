@@ -8,7 +8,6 @@ int main(int argc, char *argv[])
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Status status;
 	int m,a[100],i,b[100],sum = 0;
-
 	if(rank == 0)
 	{
 		printf("Enter no of elements\n");
@@ -50,8 +49,6 @@ int main(int argc, char *argv[])
 
 	// if(rank == 0)
 	// printf("Total Average is %d in process %d\n",newaverage/m, rank );
-
-
 	MPI_Finalize();
 
 }
