@@ -20,23 +20,16 @@ int main(int argc, char *argv[])
 		}
 		MPI_Send(&n, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
 		MPI_Send(&a[0], n/2, MPI_INT, 1, 1, MPI_COMM_WORLD);
-
-
 		if(n%2==0)
-		{
-		
+		{		
 		MPI_Send(&n, 1, MPI_INT, 2, 2, MPI_COMM_WORLD);
 		MPI_Send(&a[n/2], n/2, MPI_INT, 2, 3, MPI_COMM_WORLD);
-
 		}
 		else
 		{
-
 		MPI_Send(&n, 1, MPI_INT, 2, 2, MPI_COMM_WORLD);
 		MPI_Send(&a[n/2], n/2+1, MPI_INT, 2, 3, MPI_COMM_WORLD);
 		}
-		
-
 		MPI_Recv(&sum11, 1, MPI_INT, 1, 4, MPI_COMM_WORLD, &status);
 		MPI_Recv(&sum22, 1, MPI_INT, 2, 5, MPI_COMM_WORLD, &status);
 		sum=sum11+sum22;
@@ -88,5 +81,3 @@ int main(int argc, char *argv[])
 	MPI_Finalize();
 	return 0;
 }
-
-
