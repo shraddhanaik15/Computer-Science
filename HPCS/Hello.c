@@ -1,9 +1,7 @@
 #include<stdio.h>
 #include<mpi.h>
-
 void main(int argc,char *argv[])
 {
-
 int rank,size;
 MPI_Status status;
 MPI_Init(&argc,&argv);
