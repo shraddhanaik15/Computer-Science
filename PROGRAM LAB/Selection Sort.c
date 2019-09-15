@@ -2,6 +2,7 @@
 int n, a[10], i, j, temp, min, c1 = 0, c2=0;
 void SelectionSort(int n, int a[])
 {
+	
 		for(i=0;i<n-1;i++)
 	{
 		min = i;
