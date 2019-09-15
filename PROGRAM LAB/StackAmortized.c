@@ -32,7 +32,6 @@ void pop()
 		top = top-1;
 	}
 }
-
 void multipop()
 {
 	int k;
