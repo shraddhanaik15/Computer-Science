@@ -1,6 +1,5 @@
 #include<stdio.h>
 int n, a[100], i, j, temp, c1=0,c2=0;
-
 void BubbleSort(int n, int a[])
 {
 		for(i=0;i<n;i++)
