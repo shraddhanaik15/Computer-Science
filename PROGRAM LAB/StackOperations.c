@@ -8,7 +8,6 @@ int top = -1;
 int n, i;
 void push()
 {
-
 	if(top == MAX-1)
 	{
 		printf("overflow\n");
