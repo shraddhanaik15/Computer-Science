@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-
 int cost = 0, c = 0;
 int i, k, j;
 int arr[100];
