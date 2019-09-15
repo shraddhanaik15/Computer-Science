@@ -3,6 +3,7 @@ int mid;
 int n, a[100], i, target, c=0;
 int BinarySearch(int a[], int first, int last, int target)
 {
+	
 		while(first <= last)
 		{
 			
